@@ -291,6 +291,10 @@ BOOL RIL_IOControl(
 	PDWORD pdwActualOut
 )
 {
+	if (dwCode == RIL_COMMAND_GETNEXTNOTIFICATION)
+	{
+		return RRIL_IOControl(hOpenContext, dwCode, pBufIn, dwLenIn, pBufOut, dwLenOut, pdwActualOut);
+	}
 	ofstream logFile;
 	logFile.open("C:\\WMRilShim.log", std::ofstream::out | std::ofstream::app);
 
