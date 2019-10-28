@@ -32,6 +32,120 @@ LPRIL_OPEN RRIL_Open;
 LPRIL_IOCONTROL RRIL_IOControl;
 LPRIL_CLOSE RRIL_Close;
 
+ofstream logFile;
+
+#define THREADCOUNT 2
+
+HANDLE ghNotificationEvent;
+HANDLE ghCancellationEvent;
+HANDLE ghThreads[THREADCOUNT];
+
+std::string GetDateStr()
+{
+	time_t rawtime;
+	struct tm timeinfo;
+	char buffer[80];
+
+	time(&rawtime);
+	localtime_s(&timeinfo, &rawtime);
+
+	strftime(buffer, sizeof(buffer), "%d-%m-%Y %H:%M:%S", &timeinfo);
+	std::string str(buffer);
+	return str;
+}
+
+DWORD WINAPI ThreadProc(LPVOID lpParam)
+{
+	// lpParam not used in this example.
+	UNREFERENCED_PARAMETER(lpParam);
+
+	DWORD dwWaitResult;
+
+	while (true)
+	{
+		dwWaitResult = WaitForSingleObject(
+			ghCancellationEvent, // event handle
+			INFINITE);    // indefinite wait
+		ofstream logFile;
+		switch (dwWaitResult)
+		{
+			// Event object was signaled
+		case WAIT_OBJECT_0:
+
+			//while (logFile.is_open())
+			{
+
+			}
+
+			logFile.open("C:\\WMRilShim.log", std::ofstream::out | std::ofstream::app);
+
+			logFile << "------------------------------------\n" << GetDateStr() << " EventThread: Got cancellation event\n------------------------------------\n";
+			
+			logFile.close();
+
+			break;
+
+			// An error occurred
+		default:
+			return 0;
+		}
+	}
+
+	// Now that we are done reading the buffer, we could use another
+	// event to signal that this thread is no longer reading. This
+	// example simply uses the thread handle for synchronization (the
+	// handle is signaled when the thread terminates.)
+
+	printf("Thread %d exiting\n", GetCurrentThreadId());
+	return 1;
+}
+
+DWORD WINAPI ThreadProc2(LPVOID lpParam)
+{
+	// lpParam not used in this example.
+	UNREFERENCED_PARAMETER(lpParam);
+
+	DWORD dwWaitResult;
+
+	while (true)
+	{
+		dwWaitResult = WaitForSingleObject(
+			ghNotificationEvent, // event handle
+			INFINITE);    // indefinite wait
+		ofstream logFile;
+		switch (dwWaitResult)
+		{
+			// Event object was signaled
+		case WAIT_OBJECT_0:
+			//while (logFile.is_open())
+			{
+
+			}
+
+			logFile.open("C:\\WMRilShim.log", std::ofstream::out | std::ofstream::app);
+
+			logFile << "------------------------------------\n" << GetDateStr() << " EventThread: Got notification event\n------------------------------------\n";
+			
+			logFile.close();
+
+			break;
+
+			// An error occurred
+		default:
+			return 0;
+		}
+	}
+
+	// Now that we are done reading the buffer, we could use another
+	// event to signal that this thread is no longer reading. This
+	// example simply uses the thread handle for synchronization (the
+	// handle is signaled when the thread terminates.)
+
+	printf("Thread %d exiting\n", GetCurrentThreadId());
+	return 1;
+}
+
+
 void Initialize()
 {
 	wmril = LoadLibrary(L"WMRil.dll");
@@ -189,95 +303,96 @@ const char* TranslateCommandCodeToString(DWORD dwCode)
 	return RILCOMMANDSSTRS[code];
 }
 
-std::string GetDateStr()
-{
-	time_t rawtime;
-	struct tm timeinfo;
-	char buffer[80];
-
-	time(&rawtime);
-	localtime_s(&timeinfo, &rawtime);
-
-	strftime(buffer, sizeof(buffer), "%d-%m-%Y %H:%M:%S", &timeinfo);
-	std::string str(buffer);
-	return str;
-}
-
 DWORD RIL_Init(DWORD dwModemID)
 {
-	ofstream logFile;
+	ofstream logFile;//while (logFile.is_open())
+	{
+
+	}
+
 	logFile.open("C:\\WMRilShim.log", std::ofstream::out | std::ofstream::app);
 
-	logFile << GetDateStr() << " RIL_Init: called" << "\n";
+	logFile << GetDateStr() << " RIL_Init: called\n";
 	logFile << GetDateStr() << " RIL_Init: dwModemID = 0x" << std::hex << dwModemID << "\n";
 
 	if (wmril == NULL)
 	{
-		logFile << GetDateStr() << " RIL_Init: Looks like we didn't get initialized yet, loading WMRil module" << "\n";
+		logFile << GetDateStr() << " RIL_Init: Looks like we didn't get initialized yet, loading WMRil module\n";
 		Initialize();
-		logFile << GetDateStr() << " RIL_Init: WMRil module is loaded" << "\n";
+		logFile << GetDateStr() << " RIL_Init: WMRil module is loaded\n";
 	}
 
-	logFile << GetDateStr() << " RIL_Init: calling WMRil" << "\n";
+	logFile << GetDateStr() << " RIL_Init: calling WMRil\n";
 	DWORD inith = RRIL_Init(dwModemID);
-	logFile << GetDateStr() << " RIL_Init: WMRil called" << "\n";
 
+	logFile << GetDateStr() << " RIL_Init: WMRil called\n";
 	logFile << GetDateStr() << " RIL_Init: InitHandle = 0x" << std::hex << inith << "\n";
-
-	logFile << GetDateStr() << " RIL_Init: returning" << "\n";
+	logFile << GetDateStr() << " RIL_Init: returning\n";
+	
 	logFile.close();
+
 	return inith;
 }
 
 DWORD RIL_Version(DWORD VersionRangeLow, DWORD VersionRangeHigh)
 {
-	ofstream logFile;
+	ofstream logFile;//while (logFile.is_open())
+	{
+
+	}
+
 	logFile.open("C:\\WMRilShim.log", std::ofstream::out | std::ofstream::app);
 
-	logFile << GetDateStr() << " RIL_Version: called" << "\n";
+	logFile << GetDateStr() << " RIL_Version: called\n";
 	logFile << GetDateStr() << " RIL_Version: VersionRangeLow = 0x" << std::hex << VersionRangeLow << " VersionRangeHigh = 0x" << std::hex << VersionRangeHigh << "\n";
 
 	if (wmril == NULL)
 	{
-		logFile << GetDateStr() << " RIL_Version: Looks like we didn't get initialized yet, loading WMRil module" << "\n";
+		logFile << GetDateStr() << " RIL_Version: Looks like we didn't get initialized yet, loading WMRil module\n";
 		Initialize();
-		logFile << GetDateStr() << " RIL_Version: WMRil module is loaded" << "\n";
+		logFile << GetDateStr() << " RIL_Version: WMRil module is loaded\n";
 	}
 
-	logFile << GetDateStr() << " RIL_Version: calling WMRil" << "\n";
+	logFile << GetDateStr() << " RIL_Version: calling WMRil\n";
 	DWORD dwMaxSupportedVersion = RRIL_Version(VersionRangeLow, VersionRangeHigh);
-	logFile << GetDateStr() << " RIL_Version: WMRil called" << "\n";
 
+	logFile << GetDateStr() << " RIL_Version: WMRil called\n";
 	logFile << GetDateStr() << " RIL_Version: dwMaxSupportedVersion = 0x" << std::hex << dwMaxSupportedVersion << "\n";
-
-	logFile << GetDateStr() << " RIL_Version: returning" << "\n";
+	logFile << GetDateStr() << " RIL_Version: returning\n";
+	
 	logFile.close();
+
 	return dwMaxSupportedVersion;
 }
 
 DWORD RIL_Open(DWORD hDeviceContext, DWORD AccessCode, DWORD ShareMode)
 {
-	ofstream logFile;
+	ofstream logFile;//while (logFile.is_open())
+	{
+
+	}
+
 	logFile.open("C:\\WMRilShim.log", std::ofstream::out | std::ofstream::app);
 
-	logFile << GetDateStr() << " RIL_Open: called" << "\n";
+	logFile << GetDateStr() << " RIL_Open: called\n";
 	logFile << GetDateStr() << " RIL_Open: hDeviceContext = 0x" << std::hex << hDeviceContext << " AccessCode = 0x" << std::hex << AccessCode << " ShareMode = 0x" << std::hex << ShareMode << "\n";
 
 	if (wmril == NULL)
 	{
-		logFile << GetDateStr() << " RIL_Open: Looks like we didn't get initialized yet, loading WMRil module" << "\n";
+		logFile << GetDateStr() << " RIL_Open: Looks like we didn't get initialized yet, loading WMRil module\n";
 		Initialize();
-		logFile << GetDateStr() << " RIL_Open: WMRil module is loaded" << "\n";
+		logFile << GetDateStr() << " RIL_Open: WMRil module is loaded\n";
 	}
 
-	logFile << GetDateStr() << " RIL_Open: calling WMRil" << "\n";
+	logFile << GetDateStr() << " RIL_Open: calling WMRil\n";
 	DWORD openh = RRIL_Open(hDeviceContext, AccessCode, ShareMode);
-	logFile << GetDateStr() << " RIL_Open: WMRil called" << "\n";
 
+	logFile << GetDateStr() << " RIL_Open: WMRil called\n";
 	logFile << GetDateStr() << " RIL_Open: OpenHandle = 0x" << std::hex << openh << "\n";
-
-	logFile << GetDateStr() << " RIL_Open: returning" << "\n";
+	logFile << GetDateStr() << " RIL_Open: returning\n";
+	
 	logFile.close();
+
 	return openh;
 }
 
@@ -291,53 +406,95 @@ BOOL RIL_IOControl(
 	PDWORD pdwActualOut
 )
 {
-	if (dwCode == RIL_COMMAND_GETNEXTNOTIFICATION)
+	ofstream logFile;//while (logFile.is_open())
 	{
-		return RRIL_IOControl(hOpenContext, dwCode, pBufIn, dwLenIn, pBufOut, dwLenOut, pdwActualOut);
+
 	}
-	ofstream logFile;
+
 	logFile.open("C:\\WMRilShim.log", std::ofstream::out | std::ofstream::app);
 
-	logFile << "\n" << GetDateStr() << " RIL_IOControl: called" << "\n";
+	logFile << "\n" << GetDateStr() << " RIL_IOControl: called\n";
 	logFile << GetDateStr() << " RIL_IOControl: hOpenContext = 0x" << std::hex << hOpenContext << " dwCode = 0x" << std::hex << dwCode
 		<< " dwLenIn = 0x" << std::hex << dwLenIn << " dwLenOut = 0x" << std::hex << dwLenOut << "\n";
-
 	logFile << GetDateStr() << " RIL_IOControl: Code is " << TranslateCommandCodeToString(dwCode) << "\n";
 
 	if (wmril == NULL)
 	{
-		logFile << GetDateStr() << " RIL_IOControl: Looks like we didn't get initialized yet, loading WMRil module" << "\n";
+		logFile << GetDateStr() << " RIL_IOControl: Looks like we didn't get initialized yet, loading WMRil module\n";
 		Initialize();
-		logFile << GetDateStr() << " RIL_IOControl: WMRil module is loaded" << "\n";
+		logFile << GetDateStr() << " RIL_IOControl: WMRil module is loaded\n";
 	}
 
-	logFile << GetDateStr() << " RIL_IOControl: calling WMRil" << "\n";
+	logFile << GetDateStr() << " RIL_IOControl: calling WMRil\n";
 	BOOL result = RRIL_IOControl(hOpenContext, dwCode, pBufIn, dwLenIn, pBufOut, dwLenOut, pdwActualOut);
-	logFile << GetDateStr() << " RIL_IOControl: WMRil called" << "\n";
+
+	logFile << GetDateStr() << " RIL_IOControl: WMRil called\n";
+
+	if (dwCode == RIL_COMMAND_INITNOTIFICATIONS)
+	{
+		DWORD dwThreadID;
+
+		ghNotificationEvent = *(HANDLE*)pBufOut;
+		ghCancellationEvent = *(HANDLE*)pBufIn;
+
+		ghThreads[0] = CreateThread(
+			NULL,              // default security
+			0,                 // default stack size
+			ThreadProc,        // name of the thread function
+			NULL,              // no thread parameters
+			0,                 // default startup flags
+			&dwThreadID);
+
+		ghThreads[1] = CreateThread(
+			NULL,              // default security
+			0,                 // default stack size
+			ThreadProc2,        // name of the thread function
+			NULL,              // no thread parameters
+			0,                 // default startup flags
+			&dwThreadID);
+	}
 
 	if (dwCode != RIL_COMMAND_GETNEXTNOTIFICATION)
 	{
-		logFile << "------------------------------------" << "\n";
-		logFile << "Input:" << "\n";
+		logFile << "------------------------------------\nInput:\n";
 		for (unsigned long i = 0; i < dwLenIn; i++)
 		{
-			unsigned long index = dwLenIn - i - 1;
-			BYTE b = pBufIn[index];
+			BYTE b = pBufIn[i];
 			logFile << "0x" << std::hex << (int)b << " ";
+			if ((i + 1) % 16lu == 0)
+				logFile << "\n";
 		}
-		logFile << "\n";
-		logFile << "------------------------------------" << "\n";
-
-		logFile << "------------------------------------" << "\n";
-		logFile << "Output:" << "\n";
+		logFile << "\n------------------------------------\n------------------------------------\nOutput:\n";
 		for (unsigned long i = 0; i < dwLenOut; i++)
 		{
-			unsigned long index = dwLenOut - i - 1;
-			BYTE b = pBufOut[index];
+			BYTE b = pBufOut[i];
 			logFile << "0x" << std::hex << (int)b << " ";
+			if ((i + 1) % 16lu == 0)
+				logFile << "\n";
 		}
-		logFile << "\n";
-		logFile << "------------------------------------" << "\n";
+		logFile << "\n------------------------------------\n";
+	}
+	else
+	{
+		RILDRVNOTIFICATION* notification = (RILDRVNOTIFICATION*)pBufOut;
+		if (notification->dwDataSize == 0)
+		{
+			logFile << GetDateStr() << " RIL_IOControl: RIL_COMMAND_GETNEXTNOTIFICATION: No notification\n";
+		}
+		else
+		{
+			logFile << GetDateStr() << " RIL_IOControl: RIL_COMMAND_GETNEXTNOTIFICATION: cbSize=0x" << std::hex << notification->cbSize << " cbSizeNeeded=0x" << std::hex << notification->cbSizeNeeded << " dwCode=0x" << std::hex << notification->dwCode << " dwDataSize=0x" << std::hex << notification->dwDataSize << "\n";
+
+			logFile << "------------------------------------\nNotification Data:\n";
+			for (unsigned long i = 0; i < notification->dwDataSize; i++)
+			{
+				BYTE b = notification->pbData[i];
+				logFile << "0x" << std::hex << (int)b << " ";
+				if ((i + 1) % 16lu == 0)
+					logFile << "\n";
+			}
+			logFile << "\n------------------------------------\n";
+		}
 	}
 
 	switch (dwCode)
@@ -348,8 +505,13 @@ BOOL RIL_IOControl(
 		}
 		case RIL_COMMAND_GETNEXTNOTIFICATION:
 		{
-			logFile << GetDateStr() << " RIL_IOControl: RIL_COMMAND_GETNEXTNOTIFICATION: dwActualOut = 0x" << std::hex << *pdwActualOut << "\n";
+			logFile << GetDateStr() << " RIL_IOControl: dwActualOut = 0x" << std::hex << *pdwActualOut << "\n";
 			break;
+		}
+		case RIL_COMMAND_GETDRIVERVERSION:
+		{
+			RILGETDRIVERVERSIONPARAMS params = *(RILGETDRIVERVERSIONPARAMS*)pBufIn;
+			std::cout << GetDateStr() << " RIL_IOControl: dwMaxVersion = 0x" << std::hex << params.dwMaxVersion << " dwMinVersion=0x" << std::hex << params.dwMinVersion << "\n";
 		}
 		default:
 		{
@@ -362,35 +524,40 @@ BOOL RIL_IOControl(
 	}
 
 	logFile << GetDateStr() << " RIL_IOControl: result = 0x" << std::hex << result << "\n";
-
-	logFile << GetDateStr() << " RIL_IOControl: returning" << "\n" << "\n";
-
+	logFile << GetDateStr() << " RIL_IOControl: returning\n\n";
+	
 	logFile.close();
+
 	return result;
 }
 
 BOOL RIL_Close(DWORD hOpenContext)
 {
-	ofstream logFile;
+	ofstream logFile;//while (logFile.is_open())
+	{
+
+	}
+
 	logFile.open("C:\\WMRilShim.log", std::ofstream::out | std::ofstream::app);
 
-	logFile << GetDateStr() << " RIL_Close: called" << "\n";
+	logFile << GetDateStr() << " RIL_Close: called\n";
 	logFile << GetDateStr() << " RIL_Close: hOpenContext = 0x" << std::hex << hOpenContext << "\n";
 
 	if (wmril == NULL)
 	{
-		logFile << GetDateStr() << " RIL_Close: Looks like we didn't get initialized yet, loading WMRil module" << "\n";
+		logFile << GetDateStr() << " RIL_Close: Looks like we didn't get initialized yet, loading WMRil module\n";
 		Initialize();
-		logFile << GetDateStr() << " RIL_Close: WMRil module is loaded" << "\n";
+		logFile << GetDateStr() << " RIL_Close: WMRil module is loaded\n";
 	}
 
-	logFile << GetDateStr() << " RIL_Close: calling WMRil" << "\n";
+	logFile << GetDateStr() << " RIL_Close: calling WMRil\n";
 	BOOL result = RRIL_Close(hOpenContext);
-	logFile << GetDateStr() << " RIL_Close: WMRil called" << "\n";
 
+	logFile << GetDateStr() << " RIL_Close: WMRil called\n";
 	logFile << GetDateStr() << " RIL_Close: result = 0x" << std::hex << result << "\n";
-
-	logFile << GetDateStr() << " RIL_Close: returning" << "\n";
+	logFile << GetDateStr() << " RIL_Close: returning\n";
+	
 	logFile.close();
+
 	return result;
 }
