@@ -1,0 +1,253 @@
+28-10-2019 18:13:47 RIL_Version: called
+28-10-2019 18:13:47 RIL_Version: VersionRangeLow = 0x1 VersionRangeHigh = 0x1
+28-10-2019 18:13:47 RIL_Version: Looks like we didn't get initialized yet, loading WMRil module
+28-10-2019 18:13:47 RIL_Version: WMRil module is loaded
+28-10-2019 18:13:47 RIL_Version: calling WMRil
+28-10-2019 18:13:47 RIL_Version: WMRil called
+28-10-2019 18:13:47 RIL_Version: dwMaxSupportedVersion = 0x1
+28-10-2019 18:13:47 RIL_Version: returning
+28-10-2019 18:13:47 RIL_Init: called
+28-10-2019 18:13:47 RIL_Init: dwModemID = 0x0
+28-10-2019 18:13:47 RIL_Init: calling WMRil
+28-10-2019 18:13:47 RIL_Init: WMRil called
+28-10-2019 18:13:47 RIL_Init: InitHandle = 0x1
+28-10-2019 18:13:47 RIL_Init: returning
+28-10-2019 18:13:47 RIL_Open: called
+28-10-2019 18:13:47 RIL_Open: hDeviceContext = 0x1 AccessCode = 0x0 ShareMode = 0x0
+28-10-2019 18:13:47 RIL_Open: calling WMRil
+28-10-2019 18:13:47 RIL_Open: WMRil called
+28-10-2019 18:13:47 RIL_Open: OpenHandle = 0x1
+28-10-2019 18:13:47 RIL_Open: returning
+
+28-10-2019 18:13:47 RIL_IOControl: called
+28-10-2019 18:13:47 RIL_IOControl: hOpenContext = 0x1 dwCode = 0x1 dwLenIn = 0x8 dwLenOut = 0x8
+28-10-2019 18:13:47 RIL_IOControl: Code is RIL_COMMAND_INITNOTIFICATIONS = 0x00000001
+28-10-2019 18:13:47 RIL_IOControl: calling WMRil
+28-10-2019 18:13:47 RIL_IOControl: WMRil called
+------------------------------------
+Input:
+0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x80 
+------------------------------------
+------------------------------------
+Output:
+0x0 0x0 0x0 0x0 0x0 0x0 0x1 0x90 
+------------------------------------
+28-10-2019 18:13:47 RIL_IOControl: result = 0x1
+28-10-2019 18:13:47 RIL_IOControl: returning
+
+
+28-10-2019 18:13:47 RIL_IOControl: called
+28-10-2019 18:13:47 RIL_IOControl: hOpenContext = 0x1 dwCode = 0x5 dwLenIn = 0x8 dwLenOut = 0x4
+28-10-2019 18:13:47 RIL_IOControl: Code is RIL_COMMAND_GETDRIVERVERSION = 0x00000005
+28-10-2019 18:13:47 RIL_IOControl: calling WMRil
+28-10-2019 18:13:47 RIL_IOControl: WMRil called
+------------------------------------
+Input:
+0x0 0x32 0x0 0x0 0x0 0x2 0x0 0x0 
+------------------------------------
+------------------------------------
+Output:
+0x0 0x0 0x0 0x2 
+------------------------------------
+28-10-2019 18:13:47 RIL_IOControl: HRESULT: pBufOut = 0x2
+28-10-2019 18:13:47 RIL_IOControl: result = 0x1
+28-10-2019 18:13:47 RIL_IOControl: returning
+
+
+28-10-2019 18:13:47 RIL_IOControl: called
+28-10-2019 18:13:47 RIL_IOControl: hOpenContext = 0x1 dwCode = 0x5 dwLenIn = 0x8 dwLenOut = 0x4
+28-10-2019 18:13:47 RIL_IOControl: Code is RIL_COMMAND_GETDRIVERVERSION = 0x00000005
+28-10-2019 18:13:47 RIL_IOControl: calling WMRil
+28-10-2019 18:13:47 RIL_IOControl: WMRil called
+------------------------------------
+Input:
+0x0 0x32 0x0 0x0 0x0 0x2 0x0 0x0 
+------------------------------------
+------------------------------------
+Output:
+0x0 0x0 0x0 0x3 
+------------------------------------
+28-10-2019 18:13:47 RIL_IOControl: HRESULT: pBufOut = 0x3
+28-10-2019 18:13:47 RIL_IOControl: result = 0x1
+28-10-2019 18:13:47 RIL_IOControl: returning
+
+
+28-10-2019 18:13:48 RIL_IOControl: called
+28-10-2019 18:13:48 RIL_IOControl: hOpenContext = 0x1 dwCode = 0x6 dwLenIn = 0x4 dwLenOut = 0x4
+28-10-2019 18:13:48 RIL_IOControl: Code is RIL_COMMAND_GETDEVCAPS = 0x00000006
+28-10-2019 18:13:48 RIL_IOControl: calling WMRil
+28-10-2019 18:13:48 RIL_IOControl: WMRil called
+------------------------------------
+Input:
+0x0 0x0 0x0 0x5 
+------------------------------------
+------------------------------------
+Output:
+0x0 0x0 0x0 0x4 
+------------------------------------
+28-10-2019 18:13:48 RIL_IOControl: HRESULT: pBufOut = 0x4
+28-10-2019 18:13:48 RIL_IOControl: result = 0x1
+28-10-2019 18:13:48 RIL_IOControl: returning
+
+
+28-10-2019 18:13:48 RIL_IOControl: called
+28-10-2019 18:13:48 RIL_IOControl: hOpenContext = 0x1 dwCode = 0x6 dwLenIn = 0x4 dwLenOut = 0x4
+28-10-2019 18:13:48 RIL_IOControl: Code is RIL_COMMAND_GETDEVCAPS = 0x00000006
+28-10-2019 18:13:48 RIL_IOControl: calling WMRil
+28-10-2019 18:13:48 RIL_IOControl: WMRil called
+------------------------------------
+Input:
+0x0 0x0 0x0 0x5 
+------------------------------------
+------------------------------------
+Output:
+0x0 0x0 0x0 0x5 
+------------------------------------
+28-10-2019 18:13:48 RIL_IOControl: HRESULT: pBufOut = 0x5
+28-10-2019 18:13:48 RIL_IOControl: result = 0x1
+28-10-2019 18:13:48 RIL_IOControl: returning
+
+
+28-10-2019 18:13:48 RIL_IOControl: called
+28-10-2019 18:13:48 RIL_IOControl: hOpenContext = 0x1 dwCode = 0x25 dwLenIn = 0x0 dwLenOut = 0x4
+28-10-2019 18:13:48 RIL_IOControl: Code is RIL_COMMAND_GETRADIOCONFIGURATION = 0x00000025
+28-10-2019 18:13:48 RIL_IOControl: calling WMRil
+28-10-2019 18:13:48 RIL_IOControl: WMRil called
+------------------------------------
+Input:
+
+------------------------------------
+------------------------------------
+Output:
+0x0 0x0 0x0 0x6 
+------------------------------------
+28-10-2019 18:13:48 RIL_IOControl: HRESULT: pBufOut = 0x6
+28-10-2019 18:13:48 RIL_IOControl: result = 0x1
+28-10-2019 18:13:48 RIL_IOControl: returning
+
+
+28-10-2019 18:13:48 RIL_IOControl: called
+28-10-2019 18:13:48 RIL_IOControl: hOpenContext = 0x1 dwCode = 0x25 dwLenIn = 0x0 dwLenOut = 0x4
+28-10-2019 18:13:48 RIL_IOControl: Code is RIL_COMMAND_GETRADIOCONFIGURATION = 0x00000025
+28-10-2019 18:13:48 RIL_IOControl: calling WMRil
+28-10-2019 18:13:48 RIL_IOControl: WMRil called
+------------------------------------
+Input:
+
+------------------------------------
+------------------------------------
+Output:
+0x0 0x0 0x0 0x7 
+------------------------------------
+28-10-2019 18:13:48 RIL_IOControl: HRESULT: pBufOut = 0x7
+28-10-2019 18:13:48 RIL_IOControl: result = 0x1
+28-10-2019 18:13:48 RIL_IOControl: returning
+
+
+28-10-2019 18:13:48 RIL_IOControl: called
+28-10-2019 18:13:48 RIL_IOControl: hOpenContext = 0x1 dwCode = 0x7 dwLenIn = 0x8 dwLenOut = 0x4
+28-10-2019 18:13:48 RIL_IOControl: Code is RIL_COMMAND_GETDEVICEINFO = 0x00000007
+28-10-2019 18:13:48 RIL_IOControl: calling WMRil
+28-10-2019 18:13:48 RIL_IOControl: WMRil called
+------------------------------------
+Input:
+0x0 0x0 0x0 0x4 0x0 0x0 0x0 0x0 
+------------------------------------
+------------------------------------
+Output:
+0x0 0x0 0x0 0x8 
+------------------------------------
+28-10-2019 18:13:48 RIL_IOControl: HRESULT: pBufOut = 0x8
+28-10-2019 18:13:48 RIL_IOControl: result = 0x1
+28-10-2019 18:13:48 RIL_IOControl: returning
+
+
+28-10-2019 18:13:48 RIL_IOControl: called
+28-10-2019 18:13:48 RIL_IOControl: hOpenContext = 0x1 dwCode = 0x7 dwLenIn = 0x8 dwLenOut = 0x4
+28-10-2019 18:13:48 RIL_IOControl: Code is RIL_COMMAND_GETDEVICEINFO = 0x00000007
+28-10-2019 18:13:48 RIL_IOControl: calling WMRil
+28-10-2019 18:13:48 RIL_IOControl: WMRil called
+------------------------------------
+Input:
+0x0 0x0 0x0 0x4 0x0 0x0 0x0 0x0 
+------------------------------------
+------------------------------------
+Output:
+0x0 0x0 0x0 0x9 
+------------------------------------
+28-10-2019 18:13:48 RIL_IOControl: HRESULT: pBufOut = 0x9
+28-10-2019 18:13:48 RIL_IOControl: result = 0x1
+28-10-2019 18:13:48 RIL_IOControl: returning
+
+
+28-10-2019 18:13:48 RIL_IOControl: called
+28-10-2019 18:13:48 RIL_IOControl: hOpenContext = 0x1 dwCode = 0xc dwLenIn = 0x0 dwLenOut = 0x4
+28-10-2019 18:13:48 RIL_IOControl: Code is RIL_COMMAND_ENUMERATESLOTS = 0x0000000C
+28-10-2019 18:13:48 RIL_IOControl: calling WMRil
+28-10-2019 18:13:48 RIL_IOControl: WMRil called
+------------------------------------
+Input:
+
+------------------------------------
+------------------------------------
+Output:
+0x0 0x0 0x0 0xa 
+------------------------------------
+28-10-2019 18:13:48 RIL_IOControl: HRESULT: pBufOut = 0xa
+28-10-2019 18:13:48 RIL_IOControl: result = 0x1
+28-10-2019 18:13:48 RIL_IOControl: returning
+
+
+28-10-2019 18:13:48 RIL_IOControl: called
+28-10-2019 18:13:48 RIL_IOControl: hOpenContext = 0x1 dwCode = 0xc dwLenIn = 0x0 dwLenOut = 0x4
+28-10-2019 18:13:48 RIL_IOControl: Code is RIL_COMMAND_ENUMERATESLOTS = 0x0000000C
+28-10-2019 18:13:48 RIL_IOControl: calling WMRil
+28-10-2019 18:13:48 RIL_IOControl: WMRil called
+------------------------------------
+Input:
+
+------------------------------------
+------------------------------------
+Output:
+0x0 0x0 0x0 0xb 
+------------------------------------
+28-10-2019 18:13:48 RIL_IOControl: HRESULT: pBufOut = 0xb
+28-10-2019 18:13:48 RIL_IOControl: result = 0x1
+28-10-2019 18:13:48 RIL_IOControl: returning
+
+
+28-10-2019 18:13:48 RIL_IOControl: called
+28-10-2019 18:13:48 RIL_IOControl: hOpenContext = 0x1 dwCode = 0xd dwLenIn = 0x4 dwLenOut = 0x4
+28-10-2019 18:13:48 RIL_IOControl: Code is RIL_COMMAND_GETCARDINFO = 0x0000000D
+28-10-2019 18:13:48 RIL_IOControl: calling WMRil
+28-10-2019 18:13:48 RIL_IOControl: WMRil called
+------------------------------------
+Input:
+0x0 0x0 0x0 0x0 
+------------------------------------
+------------------------------------
+Output:
+0x0 0x0 0x0 0xc 
+------------------------------------
+28-10-2019 18:13:48 RIL_IOControl: HRESULT: pBufOut = 0xc
+28-10-2019 18:13:48 RIL_IOControl: result = 0x1
+28-10-2019 18:13:48 RIL_IOControl: returning
+
+
+28-10-2019 18:13:48 RIL_IOControl: called
+28-10-2019 18:13:48 RIL_IOControl: hOpenContext = 0x1 dwCode = 0xd dwLenIn = 0x4 dwLenOut = 0x4
+28-10-2019 18:13:48 RIL_IOControl: Code is RIL_COMMAND_GETCARDINFO = 0x0000000D
+28-10-2019 18:13:48 RIL_IOControl: calling WMRil
+28-10-2019 18:13:48 RIL_IOControl: WMRil called
+------------------------------------
+Input:
+0x0 0x0 0x0 0x0 
+------------------------------------
+------------------------------------
+Output:
+0x0 0x0 0x0 0xd 
+------------------------------------
+28-10-2019 18:13:48 RIL_IOControl: HRESULT: pBufOut = 0xd
+28-10-2019 18:13:48 RIL_IOControl: result = 0x1
+28-10-2019 18:13:48 RIL_IOControl: returning
+
